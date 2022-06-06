@@ -1,4 +1,4 @@
-theme: jekyll-theme-hacker
+theme: jekyll-theme-midnight
 exclude: [".gitignore", "LICENSE"]
 encoding: "utf-8"
 timezone: Asia/Beijing
