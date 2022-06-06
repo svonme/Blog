@@ -1,4 +1,8 @@
-## 智能合约学习笔记
+---
+title:  "智能合约学习书签"
+---
+
+# 智能合约学习书签
 
 [solidity](https://solidity-cn.readthedocs.io/zh/develop/) 文档
 
