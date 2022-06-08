@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "dev": "node test/demo"
+  },
+  "dependencies": {
+    "@fengqiaogang/dblist": "^0.3.98",
+    "@fengqiaogang/safe-get": "^0.1.1",
+    "@fengqiaogang/safe-set": "^0.1.2",
+    "bignumber.js": "^9.0.2",
+    "ethereum-multicall": "^2.12.0",
+    "web3": "^1.7.3",
+    "web3-providers-http": "^1.7.3"
+  }
+}

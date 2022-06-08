@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>登录注册</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://kingdata.com/libs/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const abi = [
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "password",
+            "type": "string"
+          }
+        ],
+        "name": "check",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "password",
+            "type": "string"
+          }
+        ],
+        "name": "create",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "name": "has",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "name": "table",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ];
+  </script>
+</head>
+<body>
+<div class="container-lg">
+  <div class="row">
+    <div class="col">
+      <form class="create-box">
+        <div class="form-group">
+          <label>用户名</label>
+          <input type="text" class="form-control j-user-name" value="李四">
+        </div>
+        <div class="form-group">
+          <label>密码</label>
+          <input type="password" class="form-control j-user-password" value="123456">
+        </div>
+        <button type="button" class="btn btn-primary j-user-button">注册</button>
+      </form>
+    </div>
+    <div class="col">
+      <form class="login-box">
+        <div class="form-group">
+          <label>用户名</label>
+          <input type="text" class="form-control j-user-name">
+        </div>
+        <div class="form-group">
+          <label>密码</label>
+          <input type="password" class="form-control j-user-password">
+        </div>
+        <button type="button" class="btn btn-primary j-user-button">登录</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+
+  (function () {
+    // 小狐狸授权
+    const requestPermissions = async () => {
+      let flag = false;
+      try {
+        const result = await window.ethereum.request({
+          method: "wallet_requestPermissions",
+          params: [{eth_accounts: {}}],
+        });
+
+        for (const item of result) {
+          // 判断 capability 是否等于 eth_accounts
+          if (item.parentCapability === "eth_accounts") {
+            flag = true;
+            break;
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      return flag;
+    }
+    // 注册
+    $(".j-user-button", ".create-box").on("click", async function () {
+      const name = $(".j-user-name", ".create-box").val();
+      const pass = $(".j-user-password", ".create-box").val();
+      if (name && pass) {
+        // 判断用户是否存在
+        // 获取小狐狸授权
+        const status = await requestPermissions();
+        if (status) {
+          // 获取 web3 对象
+          const web3 = new Web3(Web3.givenProvider || "https://rinkeby.infura.io/v3/");
+          const contract = new web3.eth.Contract(abi, "0xB5dD2069bf9B9172Ebe740A444fA88203dE82f20");
+          // contract.on(""); /
+          const value = await contract.methods.create(name, pass).send({
+            from: "0xDd6813ad647D79748E897748Cc436a60f0134BBb"
+          });
+          console.log(value);
+          if (value) {
+            alert("注册成功");
+            return;
+          }
+        }
+      }
+      alert("注册失败");
+    });
+
+    // 登录
+    $(".j-user-button", ".login-box").on("click", async function () {
+      const name = $(".j-user-name", ".login-box").val();
+      const pass = $(".j-user-password", ".login-box").val();
+      // 判断用户是否存在
+      if (name && pass) {
+        console.log(name, pass);
+        // 获取 web3 对象
+        const web3 = new Web3(Web3.givenProvider || "https://rinkeby.infura.io/v3/");
+        const contract = new web3.eth.Contract(abi, "0xB5dD2069bf9B9172Ebe740A444fA88203dE82f20");
+        const status = await contract.methods.check(name, pass).call();
+        if (status) {
+          alert("登录成功");
+        } else {
+          alert("登录失败");
+        }
+      }
+    });
+  })();
+</script>
+</body>
+</html>
