@@ -13,4 +13,4 @@ title:  "智能合约学习书签"
 
 [学习资料](/2022/06/06/solidity.html)
 
-[常用链接](/2022/06/08/link.html){target="_blank"}
+[常用链接](/2022/06/08/link.html)
