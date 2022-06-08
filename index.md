@@ -12,3 +12,5 @@ title:  "智能合约学习书签"
 [入门资料](https://www.geeksforgeeks.org/hello-world-smart-contract-in-remix-ide/)
 
 [学习资料](/2022/06/06/solidity.html)
+
+[常用链接](/2022/06/08/link.html)
