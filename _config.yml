@@ -1,6 +1,42 @@
 theme: jekyll-theme-midnight
-exclude: [".gitignore", "LICENSE"]
-encoding: "utf-8"
-timezone: Asia/Beijing
+
+host: 0.0.0.0
+baseurl: /
+encoding: utf-8
+timezone: Asia/Chongqing
+
+title: Blog
+destination: site
+
+author:
+  name: Svon
+  email: svon.me@gmail.com
+  github: svonme
+
+exclude: [".gitignore", "LICENSE", "Dockerfile", "start.sh", "README.md", "CNAME"]
+incremental: true
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
-baseurl: "/"
+
+sass:
+  style: expanded
+
+collections:
+  eth:
+    output: true
+    permalink: /:collection/:path/:name
+  openresty:
+    output: true
+    permalink: /:collection/:path/:name
+
+
+defaults:
+  -
+    scope:
+      path: "" # 默认配置适用于所有页面
+    values:
+      layout: default # 设置默认layout名称
+  -
+    scope:
+      path: posts
+    values:
+      layout: default # 设置针对_posts目录下的页面的默认layout名称

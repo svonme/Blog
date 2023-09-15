@@ -104,3 +104,12 @@ dist
 .tern-port
 
 .idea
+# jekyll cache
+.jekyll-cache
+.jekyll-metadata
+
+# output
+site
+
+# npm package lock
+*lock.yaml
