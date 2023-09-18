@@ -18,7 +18,9 @@ incremental: true
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
 sass:
+  sass_dir: _sass
   style: expanded
+  sourcemap: always # never
 
 collections:
   eth:
@@ -37,6 +39,6 @@ defaults:
       layout: default # 设置默认layout名称
   -
     scope:
-      path: posts
+      path: _posts
     values:
       layout: default # 设置针对_posts目录下的页面的默认layout名称
